@@ -1,28 +1,25 @@
 <!-- src/AppMain.vue -->
 <template>
-    <div class="container">
-      <MainFon />
-      <MainMenuButton />
-    </div>
-  </template>
-  
-  <script>
-  import MainFon from './components/MainFon.vue';
-  import MainMenuButton from './components/MainMenuButton.vue';
-  
-  export default {
-    components: {
-      MainFon,
-      MainMenuButton
-    }
-  };
-  </script>
-  
-  <style scoped>
-  .container {
-    position: relative;
-    width: 398px; /* Ширина контейнера */
-    height: 591px; /* Высота контейнера */
+  <div id="app-main">
+    <MainFon />
+    <MainMenuButton />
+    <MenuVes />
+  </div>
+</template>
+
+<script>
+import MainFon from './components/MainFon.vue'
+import MainMenuButton from './components/MainMenuButton.vue'
+import MenuVes from './components/MenuVes.vue'
+
+export default {
+  name: 'AppMain',
+  components: {
+    MainFon,
+    MainMenuButton,
+    MenuVes
   }
-  </style>
-  
+}
+</script>
+
+<style src="./styles.css"></style>

@@ -1,4 +1,3 @@
-<!-- src/components/SlidersCalculaterLitres.vue -->
 <template>
     <svg
       width="151"
@@ -40,7 +39,13 @@
     </svg>
   </template>
   
+  <script>
+  export default {
+    name: 'SlidersCalculaterLitres',
+  }
+  </script>
+  
   <style scoped>
-  /* Optional: Add any specific styles for SlidersCalculaterLitres here */
+  /* Дополнительные стили можно добавить здесь */
   </style>
   

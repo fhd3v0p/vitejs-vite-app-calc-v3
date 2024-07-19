@@ -6,7 +6,7 @@
     <MenuVes />
     <MenuLitr />
     <ResultPriceBox />
-    <BoxSliders />
+    <BoxSlider />
   </div>
 </template>
 
@@ -16,7 +16,7 @@ import MainMenuButton from './components/MainMenuButton.vue';
 import MenuVes from './components/MenuVes.vue';
 import MenuLitr from './components/MenuLitr.vue';
 import ResultPriceBox from './components/ResultPriceBox.vue';
-import BoxSliders from './components/BoxSliders.vue';
+import BoxSlider from './components/BoxSlider.vue';
 
 export default {
   name: 'AppMain',
@@ -26,7 +26,7 @@ export default {
     MenuVes,
     MenuLitr,
     ResultPriceBox,
-    BoxSliders
+    BoxSlider
   }
 };
 </script>

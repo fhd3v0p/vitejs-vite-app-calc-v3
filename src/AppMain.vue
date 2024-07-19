@@ -1,11 +1,12 @@
 <!-- src/AppMain.vue -->
 <template>
-  <div id="app">
+  <div class="app-main">
     <MainFon />
     <MainMenuButton />
     <MenuVes />
     <MenuLitr />
-    <ResultPriceBox /> <!-- Добавляем новый компонент -->
+    <ResultPriceBox />
+    <BoxSliders />
   </div>
 </template>
 
@@ -14,7 +15,8 @@ import MainFon from './components/MainFon.vue';
 import MainMenuButton from './components/MainMenuButton.vue';
 import MenuVes from './components/MenuVes.vue';
 import MenuLitr from './components/MenuLitr.vue';
-import ResultPriceBox from './components/ResultPriceBox.vue'; // Импортируем новый компонент
+import ResultPriceBox from './components/ResultPriceBox.vue';
+import BoxSliders from './components/BoxSliders.vue';
 
 export default {
   name: 'AppMain',
@@ -23,9 +25,19 @@ export default {
     MainMenuButton,
     MenuVes,
     MenuLitr,
-    ResultPriceBox  // Регистрируем новый компонент
+    ResultPriceBox,
+    BoxSliders
   }
 };
 </script>
 
-<style src="./styles.css"></style>
+<style>
+.app-main {
+  position: relative;
+  width: 398px;
+  height: 591px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #1B1B1B; /* Темный фон */
+}
+</style>

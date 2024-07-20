@@ -1,48 +1,176 @@
-<!-- src/components/MenuVes.vue -->
 <template>
-    <div class="menu-ves">
-      <svg
-        width="129"
-        height="234"
-        viewBox="0 0 129 234"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <circle cx="69" cy="114" r="60" fill="white" />
-        <path
-          d="M37.5384 129V125.01H44.8044V104.85L37.8744 106.11V102.498L46.5264 99.6H49.2564V125.01H57.0684V129H37.5384ZM72.65 129.504C70.382 129.504 68.394 128.888 66.686 127.656C65.006 126.424 63.704 124.674 62.78 122.406C61.856 120.11 61.394 117.408 61.394 114.3C61.394 111.164 61.856 108.462 62.78 106.194C63.704 103.926 65.006 102.176 66.686 100.944C68.394 99.712 70.382 99.096 72.65 99.096C74.946 99.096 76.934 99.712 78.614 100.944C80.294 102.176 81.596 103.926 82.52 106.194C83.444 108.462 83.906 111.164 83.906 114.3C83.906 117.408 83.444 120.11 82.52 122.406C81.596 124.674 80.294 126.424 78.614 127.656C76.934 128.888 74.946 129.504 72.65 129.504ZM65.93 114.3C65.93 115.868 66.07 117.296 66.35 118.584C66.63 119.872 67.022 120.992 67.526 121.944L74.876 103.758C74.176 103.422 73.434 103.254 72.65 103.254C70.69 103.254 69.08 104.248 67.82 106.236C66.56 108.196 65.93 110.884 65.93 114.3ZM72.65 125.388C73.966 125.388 75.128 124.94 76.136 124.044C77.144 123.148 77.928 121.874 78.488 120.222C79.076 118.542 79.37 116.568 79.37 114.3C79.37 112.732 79.23 111.304 78.95 110.016C78.67 108.728 78.278 107.622 77.774 106.698L70.424 124.884C71.124 125.22 71.866 125.388 72.65 125.388Z"
-          fill="#252525" />
-        <path
-          d="M99.0567 101.256H102.849V106.104H104.601L107.361 101.256H111.033L107.505 107.16L111.393 114H107.361L104.505 108.624H102.849V114H99.0567V101.256Z"
-          fill="black" />
-        <path
-          d="M100.233 132V119.256H110.241L109.809 122.184H104.025V132H100.233Z"
-          fill="black" />
-        <circle cx="22.5" cy="22.5" r="22.5" fill="#F5513C" />
-        <path
-          d="M24.3594 22.4844H28.6484V25.4609H24.3594V30.2891H21.2539V25.4609H16.9531V22.4844H21.2539V17.8672H24.3594V22.4844Z"
-          fill="#252525" />
-        <circle cx="22.5" cy="211.5" r="22.5" fill="#252525" />
-        <path
-          d="M28.3594 212.789H18.5977V210.152H28.3594V212.789Z"
-          fill="#F5513C" />
-      </svg>
+  <div class="menu-ves">
+    <svg
+      width="129"
+      height="234"
+      viewBox="0 0 129 234"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <circle cx="69" cy="114" r="60" fill="white" />
+      <circle
+        cx="22.5"
+        cy="22.5"
+        r="22.5"
+        :class="['plus-kg-button', { 'active': isPlusActive }]"
+        @mousedown="isPlusActive = true"
+        @mouseup="isPlusActive = false"
+        @mouseleave="isPlusActive = false"
+        @click="incrementWeight"
+      />
+      <path
+        :class="['plus-kg-path', { 'active': isPlusActive }]"
+        d="M24.3594 22.4844H28.6484V25.4609H24.3594V30.2891H21.2539V25.4609H16.9531V22.4844H21.2539V17.8672H24.3594V22.4844Z"
+      />
+      <circle
+        cx="22.5"
+        cy="211.5"
+        r="22.5"
+        :class="['minus-kg-button', { 'active': isMinusActive }]"
+        @mousedown="isMinusActive = true"
+        @mouseup="isMinusActive = false"
+        @mouseleave="isMinusActive = false"
+        @click="decrementWeight"
+      />
+      <path
+        :class="['minus-kg-path', { 'active': isMinusActive }]"
+        d="M28.3594 212.789H18.5977V210.152H28.3594V212.789Z"
+      />
+    </svg>
+    <div class="weight-display">
+      <div class="weight-number-unit">
+        <div class="weight-number">{{ weight }}</div>
+        <div class="weight-unit">
+          <div>к</div>
+          <div>г</div>
+        </div>
+      </div>
     </div>
-  </template>
-  
-  <style scoped>
-  .menu-ves {
-    position: absolute;
-    width: 129px;
-    height: 234px;
-    left: 21px; /* Отступ слева от главного фона */
-    top: 50px; /* Отступ сверху от главного фона */
-    z-index: 2;
-  }
-  </style>
-  
-  <script>
-  export default {
-    name: 'MenuVes',
-  }
-  </script>
-  
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'MenuVes',
+  data() {
+    return {
+      weight: 0, // Начальное значение веса
+      weights: [0, 0.3, 0.5, 0.8, 1], // Возможные значения веса
+      currentIndex: 0, // Текущий индекс в массиве weights
+      isPlusActive: false, // Состояние для кнопки плюс
+      isMinusActive: false, // Состояние для кнопки минус
+    };
+  },
+  methods: {
+    incrementWeight() {
+      if (this.currentIndex < this.weights.length - 1) {
+        this.currentIndex++;
+      } else {
+        this.weights.push(this.weights[this.weights.length - 1] + 1);
+        this.currentIndex++;
+      }
+      this.weight = this.weights[this.currentIndex];
+    },
+    decrementWeight() {
+      if (this.currentIndex > 0) {
+        this.currentIndex--;
+        this.weight = this.weights[this.currentIndex];
+      }
+    },
+  },
+}
+</script>
+
+<style scoped>
+.menu-ves {
+  position: absolute;
+  width: 129px;
+  height: 234px;
+  left: 21px; /* Отступ слева от главного фона */
+  top: 50px; /* Отступ сверху от главного фона */
+  z-index: 2;
+}
+
+.weight-display {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-weight: medium;
+  color: #252525;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weight-number-unit {
+  display: flex;
+  align-items: flex-end;
+}
+
+.weight-number {
+  font-size: 42px;
+  line-height: 1;
+  letter-spacing: 0.1px;
+}
+
+.weight-unit {
+  font-size: 24px; /* Размер для лучшей читаемости */
+  line-height: 1;
+  letter-spacing: 0.1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-left: 8px; /* Отступ от числа */
+  font-weight: bold; /* Сделаем текст более жирным */
+}
+
+/* Стили для кнопок и эффект нажатия */
+.plus-kg-button,
+.minus-kg-button {
+  cursor: pointer;
+  transition: fill 0.2s, stroke 0.2s;
+}
+
+.plus-kg-path,
+.minus-kg-path {
+  transition: fill 0.2s;
+}
+
+.plus-kg-button.active {
+  fill: white;
+}
+
+.plus-kg-path.active {
+  fill: #F5513C;
+}
+
+.minus-kg-button.active {
+  fill: white;
+}
+
+.minus-kg-path.active {
+  fill: #252525;
+}
+
+.plus-kg-button {
+  fill: #F5513C;
+  transition: fill 0.2s;
+}
+
+.plus-kg-path {
+  fill: #252525;
+  transition: fill 0.2s;
+}
+
+.minus-kg-button {
+  fill: #252525;
+  transition: fill 0.2s;
+}
+
+.minus-kg-path {
+  fill: #F5513C;
+  transition: fill 0.2s;
+}
+</style>
